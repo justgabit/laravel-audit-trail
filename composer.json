@@ -1,5 +1,5 @@
 {
-    "name": "mueva/audit-trail",
+    "name": "mueva/laravel-audit-trail",
     "description": "Laravel package to handle audit trails",
     "type": "library",
     "license": "proprietary",
