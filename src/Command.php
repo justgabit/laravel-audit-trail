@@ -7,6 +7,8 @@ use Illuminate\Support\Fluent;
 
 class Command extends Fluent
 {
+    const UNKNOWN = 'unknown';
+
     /**
      * There are all the keys that this command recognizes. This is needed so that the command can recognize extra keys.
      * @var array
@@ -19,6 +21,27 @@ class Command extends Fluent
         'resetParent',
         'table',
     ];
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        // NOTE: NULL is a valid value for userId but the Fluent class considers a value that is not set and null as
+        // the same. We need a special mechanism to detect when userId is actually null.
+        $this->userId = self::UNKNOWN;
+    }
+
+    /**
+     * Returns true if userId is a number or NULL (which are both valid values for userId). Otherwise returns false.
+     * @return bool
+     */
+    public function userIdIsUnknown(): bool
+    {
+        if ($this->userId == self::UNKNOWN) {
+            return true;
+        }
+        return false;
+    }
 
     public function action(Action $action)
     {
@@ -38,7 +61,7 @@ class Command extends Fluent
         $auditTrail->execute($this);
     }
 
-    public function userId(int $id)
+    public function userId($id)
     {
         $this->userId = $id;
         return $this;

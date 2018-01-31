@@ -40,7 +40,7 @@ class AuditTrail
             $this->createNewAction($command);
         }
 
-        if (!isset($command->userId)) {
+        if ($command->userIdIsUnknown()) {
             $command->userId = $this->autodetectUserid();
         }
 
