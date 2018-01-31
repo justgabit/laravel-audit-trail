@@ -5,8 +5,7 @@
     "license": "proprietary",
     "minimum-stability": "dev",
     "require": {
-        "php": ">=7.0.0",
-        "ramsey/uuid": "^3.0@dev"
+        "php": ">=7.0.0"
     },
     "extra": {
         "laravel": {
