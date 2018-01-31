@@ -7,6 +7,12 @@ use JsonSerializable;
 abstract class Action implements JsonSerializable
 {
     /**
+     * This is exactly what gets saved in the action_data field.
+     * @return mixed
+     */
+    abstract function jsonSerialize();
+
+    /**
      * Return the table that this action relates to. This is a shortcut to save some typing while creating a trail.
      * If null is returned then the user must specify a tableName() while the trail is created.
      * If the action represents an Eloquent model, this method can be ommited. @see getEloquentModel()
