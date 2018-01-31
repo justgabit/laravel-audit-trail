@@ -1,0 +1,7 @@
+# PHPUnit's code coverage report
+coverage/
+
+vendor/
+
+# Don't include composer.lock when developing libraries
+composer.lock

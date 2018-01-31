@@ -1,0 +1,34 @@
+{
+    "name": "mueva/audit-trail",
+    "description": "Laravel package to handle audit trails",
+    "type": "library",
+    "license": "proprietary",
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0.0",
+        "ramsey/uuid": "^3.0@dev"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mueva\\AuditTrail\\AuditTrailServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Mueva\\AuditTrail\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Mueva\\AuditTrail\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "6.5.x-dev",
+        "orchestra/testbench": "3.5.x-dev",
+        "limedeck/phpunit-detailed-printer": "dev-master",
+        "mockery/mockery": "^1.0@dev"
+    }
+}
