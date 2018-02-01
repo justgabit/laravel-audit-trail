@@ -91,6 +91,7 @@ Using AuditTrail should be very straight forward. Let's assume that you have alr
 At the top of your class, import AuditTrail and your action class:
 
 ```php
+<?php
 use Mueva\AuditTrail\AuditTrail;
 use App\AuditTrailActions\Login;
 ```
@@ -98,6 +99,7 @@ use App\AuditTrailActions\Login;
 The most detailed functionality would be:
 
 ```php
+<?php
 AuditTrail::create()
     ->userId(23)
     ->action(new ProductChanged($productModel))
@@ -115,6 +117,7 @@ You can call `userId(null)` for system actions that aren't triggered by a partic
 Let's say that you have three calls to AuditTrail in your code. They don't necessarily need to be in the same method, class, or even scope:
 
 ```php
+<?php
 AuditTrail::create()
     ->action(new Login($user))
     ->execute();
@@ -133,6 +136,7 @@ In this case, the second and third actions will have a populated `parent_id` fie
 If you wish for an action to be a "parent" row, that is, for its `parent_id` to be `null` then you can call `resetParent()`:
 
 ```php
+<?php
 AuditTrail::create()
     ->action(new Login($user))
     ->execute();
@@ -154,6 +158,7 @@ As you can see, the second call now uses `resetParent()`. This means that the fi
 You can manually add as many extra fields to the `audit_trail` table as you like. When generating an audit trail, you can pass extra parameters to the call to populate these fields. Let's say we wanted to track what virtual machine instance the action has taken place in. We would add a `instance` column to the `audit_trail` table, and the fill it like this:
 
 ```php
+<?php
 AuditTrail::create()
     ->action(new Login($user))
     ->instance('i-ys3abwk248sla')
