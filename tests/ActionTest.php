@@ -58,4 +58,13 @@ class ActionTest extends TestCase
         $action = new EmptyAction;
         $this->assertEquals('empty-action', $action->getName());
     }
+
+    /**
+     * @covers ::getExtras
+     */
+    public function test_getExtras()
+    {
+        $action = new EmptyAction;
+        $this->assertEquals([], $action->getExtras());
+    }
 }

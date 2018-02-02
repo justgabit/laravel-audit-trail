@@ -65,4 +65,15 @@ abstract class Action implements JsonSerializable
     {
         return null;
     }
+
+    /**
+     * Just like a Command, an Action can transparently populate custom fields in the audit_trail table without the
+     * caller having to specify them at call time. The array returned here represent such fields. The array keys should
+     * contain the column names and the array values their respective values.
+     * @return array
+     */
+    public function getExtras(): array
+    {
+        return [];
+    }
 }

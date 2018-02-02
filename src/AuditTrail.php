@@ -80,7 +80,8 @@ class AuditTrail
                         'table_id'     => $tableId,
                         'date'         => Carbon::now(),
                     ],
-                    $command->getExtras()
+                    $command->getExtras(),
+                    $action->getExtras()
                 )
             );
 

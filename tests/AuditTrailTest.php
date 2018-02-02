@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Mueva\AuditTrail\AuditTrail;
 use Mueva\AuditTrail\Tests\Actions\EloquentAction;
+use Mueva\AuditTrail\Tests\Actions\ExtraFieldsAction;
 use Mueva\AuditTrail\Tests\Actions\RegularAction;
 use Mueva\AuditTrail\Tests\Models\Foo;
 use Mueva\AuditTrail\Tests\Models\User;
@@ -83,7 +84,7 @@ class AuditTrailTest extends TestCase
     /**
      * @covers ::execute
      */
-    public function test_extra_fields_are_saved()
+    public function test_explicit_extra_fields_are_saved()
     {
         $this->createExtraFields(['extra1', 'extra2']);
 
@@ -98,7 +99,24 @@ class AuditTrailTest extends TestCase
         $this->assertEquals('foo', $result->extra1);
         $this->assertEquals('bar', $result->extra2);
     }
-    
+
+    /**
+     * @covers ::execute
+     */
+    public function test_extra_fields_are_saved_when_action_provides_them()
+    {
+        $this->createExtraFields(['extra1', 'extra2']);
+
+        AuditTrail::create()
+            ->action(new ExtraFieldsAction)
+            ->userId(123)
+            ->execute();
+
+        $result = DB::table('audit_trail')->first();
+        $this->assertEquals('foo', $result->extra1);
+        $this->assertEquals('bar', $result->extra2);
+    }
+
     /**
      * @covers ::execute
      * @covers ::autodetectUserid

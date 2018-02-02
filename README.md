@@ -84,6 +84,22 @@ As stated earlier, every action must extend `Mueva\AuditTrail\Action`. The best 
 
 Other than what's on the class methods documentation, there is one notable thing to mention. If your action represents an Eloquent model, then there is no need to override the `getTableName()` and `getTableId()` methods as those can be deduced from the Eloquent model itself. In that case, just return the model object in `getEloquentModel()` and AuditTrail will automatically fill the `table_name` and `table_id` fields automatically.
 
+Lastly, your action may want to populate extra fields in the `audit_trail` table implicitly. This is achieved by overriding the `getExtras()` method on your action and returning an array where the keys represent the field names and the array values represent the field values. So for example let's say you have a Login action that gets passed a User model and that your `audit_trail` table has a nullable `partner_id` field that you want to fill automatically every time a Login action gets executed. Inside your Login action's `getExtras()` method you should write the logic to get the `partner_id` based on the user logging in and then return the following array:
+
+```php
+<?php
+    public function getExtras(): array
+    {
+        // Here you would write logic to get your partner_id.
+        // Let's assume it is part of your User model for this example.
+        return [
+            'partner_id' => $this->user->partner_id
+        ];
+    }
+```
+
+In the above example, you don't need to explicitly specify the partner_id while creating the audit trail call because the Action will implicitly add that field. This eliminates the clutter of fetching extra fields in the audit trail call and delegates the responsibility of populating these fields to the Action.
+
 ## API
 
 Using AuditTrail should be very straight forward. Let's assume that you have already created a Login action (more on how to do this later) and that your login action.
