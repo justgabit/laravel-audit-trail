@@ -7,7 +7,7 @@ use Mueva\AuditTrail\Tests\Models\Foo;
 
 class RegularAction extends Action
 {
-    public function jsonSerialize()
+    public function jsonSerialize(): string
     {
         return json_encode([]);
     }

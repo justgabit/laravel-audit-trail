@@ -8,9 +8,9 @@ abstract class Action implements JsonSerializable
 {
     /**
      * This is exactly what gets saved in the action_data field.
-     * @return mixed
+     * @return string
      */
-    abstract function jsonSerialize();
+    abstract function jsonSerialize(): string;
 
     /**
      * Return the table that this action relates to. This is a shortcut to save some typing while creating a trail.

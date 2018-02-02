@@ -6,7 +6,7 @@ use Mueva\AuditTrail\Action;
 
 class EmptyAction extends Action
 {
-    public function jsonSerialize()
+    public function jsonSerialize(): string
     {
         return json_encode([]);
     }

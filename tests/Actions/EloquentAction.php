@@ -14,7 +14,7 @@ class EloquentAction extends Action
         $this->model = $foo;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): string
     {
         return $this->model->toJson();
     }
