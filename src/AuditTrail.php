@@ -50,6 +50,10 @@ class AuditTrail
             $model = $action->getEloquentModel();
             $tableName = $model->getTable();
             $tableId = $model->{$model->getKeyName()};
+            if ($tableId == 0) {
+                // Eloquent models that don't have a primary ID configured (for example compund keys) will return 0
+                $tableId = null;
+            }
         } else {
             // Action does not contain an Eloquen model. Use configured table name and id.
             $tableName = $action->getTableName();

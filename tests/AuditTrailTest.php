@@ -65,6 +65,27 @@ class AuditTrailTest extends TestCase
     }
 
     /**
+     * @covers \Mueva\AuditTrail\AuditTrailServiceProvider::boot
+     * @covers ::execute
+     */
+    public function test_eloquent_models_without_primary_keys_save_null_in_table_field()
+    {
+        $action = new EloquentAction(new Foo);
+        $userId = 20;
+
+        AuditTrail::create()
+            ->action($action)
+            ->userId($userId)
+            ->execute();
+
+        $result = DB::table('audit_trail')->get();
+        $this->assertCount(1, $result);
+        $result = $result->first();
+
+        $this->assertNull($result->table_id);
+    }
+
+    /**
      * @covers ::execute
      */
     public function test_encrypt_action_data()
