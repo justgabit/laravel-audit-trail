@@ -16,6 +16,22 @@ use Auth;
 class CommandTest extends TestCase
 {
     /**
+     * @covers ::__construct
+     * @covers ::userIdIsUnknown
+     */
+    public function test_userIdIsUnknown()
+    {
+        $command = new Command;
+        $this->assertTrue($command->userIdIsUnknown());
+
+        $command->userId(null);
+        $this->assertFalse($command->userIdIsUnknown());
+
+        $command->userId(123);
+        $this->assertFalse($command->userIdIsUnknown());
+    }
+
+    /**
      * @covers ::getCacheKey
      */
     public function test_getCacheKey()
