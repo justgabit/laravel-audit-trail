@@ -49,10 +49,15 @@ class AuditTrail
             /** @var Model $model */
             $model = $action->getEloquentModel();
             $tableName = $model->getTable();
-            $tableId = $model->{$model->getKeyName()};
-            if ($tableId == 0) {
-                // Eloquent models that don't have a primary ID configured (for example compund keys) will return 0
-                $tableId = null;
+
+            $tableId = null;
+            if (!is_array($model->getKeyName())) {
+                $key = $model->getKeyName();
+                $tableId = $model->{$key};
+            } else {
+                foreach ($model->getKeyName() as $key) {
+                    $tableId[$key] = $model->{$key};
+                };
             }
         } else {
             // Action does not contain an Eloquen model. Use configured table name and id.
@@ -81,7 +86,7 @@ class AuditTrail
                         'action_data'  => $actionData,
                         'action_brief' => $action->getBrief(),
                         'table_name'   => $tableName,
-                        'table_id'     => $tableId,
+                        'table_id'     => is_null($tableId) ? null : json_encode($tableId),
                         'date'         => Carbon::now(),
                     ],
                     $command->getExtras(),

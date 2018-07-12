@@ -3,6 +3,10 @@
 
 AuditTrail allows the creation of an audit trail (a detailed log) of any domain transactions. Currently it only works with a database but the table name and the connection name can be customized and many different tables can be used at once. This is useful if you need to create different kinds of audit trails in the same app (system transactions vs user transactions, etc).
 
+# Release notes
+
+* 1.1 - Added support for Eloquent models with compound primary keys that use the package `mopo922/laravel-treats`.
+* 1.0 - Initial release.
 
 ## Installation
 

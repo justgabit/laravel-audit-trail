@@ -13,6 +13,8 @@ use Mueva\AuditTrail\AuditTrail;
 use Mueva\AuditTrail\Tests\Actions\EloquentAction;
 use Mueva\AuditTrail\Tests\Actions\ExtraFieldsAction;
 use Mueva\AuditTrail\Tests\Actions\RegularAction;
+use Mueva\AuditTrail\Tests\Actions\CompoundAction;
+use Mueva\AuditTrail\Tests\Models\Compound;
 use Mueva\AuditTrail\Tests\Models\Foo;
 use Mueva\AuditTrail\Tests\Models\User;
 
@@ -68,7 +70,7 @@ class AuditTrailTest extends TestCase
      * @covers \Mueva\AuditTrail\AuditTrailServiceProvider::boot
      * @covers ::execute
      */
-    public function test_eloquent_models_without_primary_keys_save_null_in_table_field()
+    public function test_eloquent_models_without_primary_keys_save_null_in_table_id_field()
     {
         $action = new EloquentAction(new Foo);
         $userId = 20;
@@ -83,6 +85,26 @@ class AuditTrailTest extends TestCase
         $result = $result->first();
 
         $this->assertNull($result->table_id);
+    }
+
+    /**
+     * @covers \Mueva\AuditTrail\AuditTrailServiceProvider::boot
+     * @covers ::execute
+     */
+    public function test_eloquent_models_without_compound_primary_keys_save_valid_json_in_table_id_field()
+    {
+        $action = new CompoundAction(new Compound);
+
+        AuditTrail::create()
+            ->action($action)
+            ->userId(20)
+            ->execute();
+
+        $result = DB::table('audit_trail')->get();
+        $this->assertCount(1, $result);
+        $result = $result->first();
+
+        $this->assertEquals('{"key1":null,"key2":null,"key3":null}', $result->table_id);
     }
 
     /**
