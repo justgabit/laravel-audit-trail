@@ -6,7 +6,7 @@
     "minimum-stability": "stable",
     "require": {
         "php": ">=7.0.0",
-        "doctrine/dbal": "^2.8@dev"
+        "doctrine/dbal": "^2.5"
     },
     "extra": {
         "laravel": {
