@@ -1,5 +1,5 @@
 {
-    "name": "mueva/laravel-audit-trail",
+    "name": "justgabit/laravel-audit-trail",
     "description": "Laravel package to handle audit trails",
     "type": "library",
     "license": "proprietary",
