@@ -10,35 +10,7 @@ AuditTrail allows the creation of an audit trail (a detailed log) of any domain 
 
 ## Installation
 
-Since this is a private package, extra steps must be taken in order for composer to be able to install it properly.
-
-First, add this repository to your `composer.json` file. This example shows a `repositories` key with a single item but you may have others too:
-
-    "repositories": [
-      {
-        "type": "vcs",
-        "url":  "https://bitbucket.org/mueva/laravel-audit-trail.git"
-      }
-    ]
-
-This tells composer that the `mueva/laravel-audit-trail` is hosted in a repository in BitBucket. You now need to add authentication to that repository, otherwise you will not be able to clone it. For this you will need to create an `auth.json` file in the same directory as your `composer.json` and fill it with the OAuth credentials for the user that you want to clone the repo with. 
-
-    {
-      "bitbucket-oauth": {
-        "bitbucket.org": {
-          "consumer-key": "<INSERT KEY HERE>",
-          "consumer-secret": "<INSERT SECRET HERE>"
-        }
-      }
-    }
-
-OAuth credentials for a BitBucket user can be found in (User avatar lower left icon) > Settings > Access Management > OAuth > Add consumer. The urls in that page can be anything and are not used by composer.
-
-IMPORTANT: The user cloning this repository needs only read-only access so it can be YOUR same user credentials in this file. But make absolutely sure that you **NEVER COMMIT `auth.json`** as your credentials will be exposed. A deployment user will need to be granted read-only access to this repository and their credentials will need to be added to the server where this package is deployed. Otherwise, this package will not be able to be deployed in production and composer install in production will fail.
-
-Once the repository is added to `compsoer.json` and the `auth.json` file is created you can execute the following line to add this repo to your project:
-
-    composer require mueva/laravel-audit-trail 
+    composer require justgabit/laravel-audit-trail 
 
 AuditTrail comes with two database tables that you will need to create in order to use it. After the package is installed you will need to create the tables:
 
